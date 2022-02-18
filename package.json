@@ -10,10 +10,10 @@
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier:cli": "lb-prettier '**/*.ts' '**/*.js'",
+    "prettier:cli": "lb-prettier '**/*.ts' '**/*.js' 'advisories/lbsa*.csaf.json'",
     "prettier:check": "npm run prettier:cli -- -l",
     "prettier:fix": "npm run prettier:cli -- --write",
-    "validate-csaf20": "ts-node --project=scripts/tsconfig.json hacks/advisories/validate-csaf20.ts"
+    "validate-csaf20": "ts-node --project=scripts/tsconfig.json scripts/advisories/validate-csaf20.ts"
   },
   "repository": {
     "type": "git",
