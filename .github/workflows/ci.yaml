@@ -10,11 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: npm ci --ignore-scripts
-      - run: |
+      - name: Install tools
+        run: npm ci --ignore-scripts
+      - name: Run code lint
+        run: |
           npm run-script --ignore-scripts prettier:check
           npm run-script --ignore-scripts validate-csaf20
   commit-lint:
@@ -28,6 +32,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Install Tools
+      - name: Install tools
         run: npm ci --ignore-scripts
-      - run: npx commitlint --from=origin/master --to=HEAD --verbose
+      - name: Run commit lint
+        run: npx commitlint --from=origin/main --to=HEAD --verbose

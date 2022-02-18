@@ -43,8 +43,10 @@ glob(path.resolve(__dirname, csaf20DocumentGlob), (err, matches) => {
 
   if (matches.length === 0) console.log('No CSAF 2.0 documents found!');
 
-  if (errorCount > 0) console.log(`${errorCount} error(s) found.`);
+  if (errorCount > 0) {
+    console.log(`${errorCount} error(s) found.`);
+    process.exit(1);
+  }
 
   console.log('CSAF 2.0 validation done.');
-  process.exit(1);
 });
