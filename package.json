@@ -1,0 +1,47 @@
+{
+  "name": "security",
+  "version": "0.1.0",
+  "description": "LoopBack Security Repository",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "postinstall": "husky install",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prettier:cli": "lb-prettier '**/*.ts' '**/*.js'",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "validate-csaf20": "ts-node --project=scripts/tsconfig.json hacks/advisories/validate-csaf20.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loopbackio/security.git"
+  },
+  "engines": {
+    "node": "12 || 14 || 16 || 17",
+    "npm": ">=7"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loopbackio/security/issues"
+  },
+  "homepage": "https://github.com/loopbackio/security#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@loopback/build": "^8.1.0",
+    "@loopback/eslint-config": "^12.0.2",
+    "@types/ajv": "^1.0.0",
+    "@types/glob": "^7.2.0",
+    "ajv": "^8.10.0",
+    "ajv-formats": "^2.1.1",
+    "eslint": "^8.9.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "glob": "^7.2.0",
+    "husky": "^7.0.4",
+    "ts-node": "^10.5.0"
+  }
+}
