@@ -23,7 +23,7 @@ Where:
 ## Scripts
 
 Validation of the CSAF 2.0 documents are done by
-<../hacks/advisories/validate-csaf20.ts>. This is triggered automatically during
+<../scripts/advisories/validate-csaf20.ts>. This is triggered automatically during
 a Git commit, and as part of the [CI pipeline](../.github/workflows/ci.yaml). It
 can also be triggered by running `npm run validate-csaf20`.
 
