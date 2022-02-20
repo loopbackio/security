@@ -14,7 +14,7 @@
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier:cli": "lb-prettier '**/*.ts' '**/*.js' 'advisories/lbsa*.csaf.json'",
+    "prettier:cli": "lb-prettier '**/*.ts' '**/*.js' 'advisories/lbsa*.csaf.json' '**/*.md'",
     "prettier:check": "npm run prettier:cli -- -l",
     "prettier:fix": "npm run prettier:cli -- --write",
     "validate-csaf20": "ts-node --project=scripts/tsconfig.json scripts/advisories/validate-csaf20.ts"
@@ -27,7 +27,7 @@
     "node": "12 || 14 || 16 || 17",
     "npm": ">=7"
   },
-  "author": "",
+  "author": "LoopBack Contributors",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/loopbackio/security/issues"

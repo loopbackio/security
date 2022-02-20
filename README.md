@@ -1,3 +1,8 @@
+<!--
+  SPDX-FileCopyrightText: LoopBack Contributors
+  SPDX-License-Identifier: MIT
+-->
+
 # LoopBack Security Repository
 
 > Note: This is a work-in-progress and may be incomplete.
@@ -18,3 +23,7 @@ To clone this Git repository:
 git clone git@github.com:loopbackio/security.git
 git submodule update --recursive
 ```
+
+## License
+
+[MIT](./LICENSE)
