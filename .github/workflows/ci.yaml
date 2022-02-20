@@ -11,12 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: true
+          submodules: recursive
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Install tools
-        run: npm ci --ignore-scripts
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm run-script --ignore-scripts install
+      - name: Build project
+        run: npm run --ignore-scripts build
       - name: Run code lint
         run: |
           npm run-script --ignore-scripts prettier:check
@@ -35,4 +39,4 @@ jobs:
       - name: Install tools
         run: npm ci --ignore-scripts
       - name: Run commit lint
-        run: npx commitlint --from=origin/main --to=HEAD --verbose
+        run: npx --no-install commitlint --from=origin/main --to=HEAD --verbose

@@ -9,3 +9,12 @@ about the LoopBack project. It includes the following:
 - PGP Keys ([`keys/`](keys/README.md))
 - Scripts ([`scripts/`](scripts/README.md))
 - Vendors ([`vendors/`](vendors/README.md))
+
+## Cloning This Repository
+
+To clone this Git repository:
+
+```
+git clone git@github.com:loopbackio/security.git
+git submodule update --recursive
+```
