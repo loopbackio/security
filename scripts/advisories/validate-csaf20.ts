@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: LoopBack Contributors
+// SPDX-License-Identifier: MIT
+
 import path from 'path';
 import glob from 'glob';
 import createCore from 'secvisogram/dist/shared/Core';

@@ -1,3 +1,8 @@
+<!--
+  SPDX-FileCopyrightText: LoopBack Contributors
+  SPDX-License-Identifier: MIT
+-->
+
 # LoopBack Security Advisories (LBSA)
 
 > Note: This is a work-in-progress and may be incomplete. Please see

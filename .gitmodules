@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: LoopBack Contributors
+# SPDX-License-Identifier: MIT
+
 [submodule "vendors/secvisogram"]
 	path = vendors/secvisogram
 	url = git@github.com:BSI-Bund/secvisogram.git

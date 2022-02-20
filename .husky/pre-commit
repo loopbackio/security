@@ -1,4 +1,7 @@
 #!/bin/sh
+# SPDX-FileCopyrightText: LoopBack Contributors
+# SPDX-License-Identifier: MIT
+
 . "$(dirname "$0")/_/husky.sh"
 
 npm run-script prettier:check

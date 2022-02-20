@@ -1,6 +1,5 @@
-// Copyright IBM Corp. 2022. All Rights Reserved.
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
+// SPDX-FileCopyrightText: LoopBack Contributors
+// SPDX-License-Identifier: MIT
 
 module.exports = {
   extends: '@loopback/eslint-config',

@@ -1,3 +1,8 @@
+<!--
+  SPDX-FileCopyrightText: LoopBack Contributors
+  SPDX-License-Identifier: MIT
+-->
+
 # Vendors
 
 This directory contains Git submodules that are depended upon by this Git

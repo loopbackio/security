@@ -1,0 +1,5 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: LoopBack Security Repository
+Source: https://github.com/loopbackio/security
+License: MIT
+Copyright: LoopBack Contributors

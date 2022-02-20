@@ -1,3 +1,8 @@
+<!--
+  SPDX-FileCopyrightText: LoopBack Contributors
+  SPDX-License-Identifier: MIT
+-->
+
 # LoopBack PGP Keys
 
 > Note: This is a work-in-progress and may be incomplete.
@@ -33,29 +38,29 @@ Identity Attestation of the LoopBack Project's Core Maintainers are done by:
 
 1. Signing of Mantainer's Key against Main Key
 2. Publishing of the Maintainer's Key to the `main` branch of this Git
-    repository
+   repository
 
 Before the LoopBack Project can attest to the identity of a maintainer, a secure
 mechanism of exchanging the Maintainer's Key must be done while satisfying the
 following requirements:
 
 1. The Maintainer's Key is shared over at least 2 trusted channels where the
-    core maintainer has already established the authenticity of their account.
-    This can be: e-mail, Slack, and GitHub Teams
+   core maintainer has already established the authenticity of their account.
+   This can be: e-mail, Slack, and GitHub Teams
 2. The process, artifacts (e.g. screenshots, e-mail source code), and
-    justification for the pre-established trust of the account are documented
-    and stored in an encrypted medium.
+   justification for the pre-established trust of the account are documented
+   and stored in an encrypted medium.
 
 #### Private Key Exposure
 
 - All potential private key exposure MUST be communicated with the Security
   Team over e-mail or Slack.
 - A Revocation Certificate MUST be generated and published to all key sharing
-    systems that's well known, and where the key has been publised as soon as
-    feasible by the party in possession of the compromised Private Key.
+  systems that's well known, and where the key has been publised as soon as
+  feasible by the party in possession of the compromised Private Key.
 - A Revocation Certificate MUST be generated and published to all key sharing
-    systems that's well known, and where the key has been published within 24
-    hours of notification by the party responsible for maintaining the Main Key.
+  systems that's well known, and where the key has been published within 24
+  hours of notification by the party responsible for maintaining the Main Key.
 
 ##### Well-known key sharing systems
 
@@ -80,10 +85,10 @@ The Core Maintainers' Key are held by each participating Core Maintianer for
 signing of Git commits.
 
 - Each Core Maintainer is responsible for keeping their maintainers' key safe
-- This key MUST only be possessed by the 
+- This key MUST only be possessed by the
 - This key MUST be used for signing Git commits
 - This key SHOULD NOT be used except for signing Git commits
   - For avoidance of doubt, this key SHOULD NOT be used for Git
-      authentication. Consider using a dedicated SSH key instead.
+    authentication. Consider using a dedicated SSH key instead.
 - This key SHOULD NOT be used except for signing Git commits for the LoopBack
-    Project 
+  Project

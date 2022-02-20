@@ -1,3 +1,8 @@
+<!--
+  SPDX-FileCopyrightText: LoopBack Contributors
+  SPDX-License-Identifier: MIT
+-->
+
 # Common Tasks
 
 ## References

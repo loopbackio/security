@@ -1,1 +1,5 @@
+# SPDX-FileCopyrightText: LoopBack Contributors
+# SPDX-License-Identifier: MIT
+
 vendors
+!vendors/README.md
