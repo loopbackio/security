@@ -1,42 +1,33 @@
 import path from 'path';
 import glob from 'glob';
-import addFormats from 'ajv-formats';
-import Ajv2020 from 'ajv/dist/2020';
-import csaf20StrictJsonSchema from '../../vendors/secvisogram/app/lib/shared/Core/csaf_2.0_strict.json';
-import cvss20JsonSchema from '../../vendors/secvisogram/app/lib/shared/Core/cvss-v2.0.json';
-import cvss30JsonSchema from '../../vendors/secvisogram/app/lib/shared/Core/cvss-v3.0.json';
-import cvss31JsonSchema from '../../vendors/secvisogram/app/lib/shared/Core/cvss-v3.1.json';
+import createCore from 'secvisogram/dist/shared/Core';
 
 const csaf20DocumentGlob = '../../advisories/*.csaf.json';
 
 console.log(`Validating CSAF 2.0 documents... (Glob: ${csaf20DocumentGlob})`);
 
-glob(path.resolve(__dirname, csaf20DocumentGlob), (err, matches) => {
+glob(path.resolve(__dirname, csaf20DocumentGlob), async (err, matches) => {
   if (err) throw Error;
 
-  let errorCount = 0;
+  const {document} = createCore();
 
-  const validate = addFormats(new Ajv2020({strict: false, allErrors: true}))
-    .addSchema(cvss20JsonSchema, 'https://www.first.org/cvss/cvss-v2.0.json')
-    .addSchema(cvss30JsonSchema, 'https://www.first.org/cvss/cvss-v3.0.json')
-    .addSchema(cvss31JsonSchema, 'https://www.first.org/cvss/cvss-v3.1.json')
-    .compile(csaf20StrictJsonSchema);
+  let errorCount = 0;
 
   for (const filePath of matches) {
     process.stdout.write(
       `  L Validating: ${path.relative(process.cwd(), filePath)}...`,
     );
     const fileContents = require(filePath);
-    if (validate(fileContents)) console.log('Done!');
+    const {isValid, errors} = await document.validate({document: fileContents});
+
+    if (isValid) console.log('Done!');
     else {
-      console.log(`${validate.errors.length} error(s) found:`);
-      for (let i = 0; i < validate.errors.length; i++) {
-        errorCount++;
+      errorCount += errors.length;
+      console.log(`${errors.length} error(s) found:`);
+      for (let i = 0; i < errors.length; i++) {
         console.log(`    L Error #${i + 1}`);
-        console.log(
-          `      L Instance path : ${validate.errors[i].instancePath}`,
-        );
-        console.log(`      L Message       : ${validate.errors[i].message}`);
+        console.log(`      L Instance path : ${errors[i].instancePath}`);
+        console.log(`      L Message       : ${errors[i].message ?? 'N/A'}`);
       }
     }
   }

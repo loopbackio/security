@@ -5,7 +5,11 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "husky install && npm run build",
+    "install": "npm run install:vendor:secvisogram",
+    "install:vendor:secvisogram": "( cd vendors/secvisogram && npm ci --ignore-scripts && cd app && npm ci --ignore-scripts )",
+    "build": "npm run build:vendor:secvisogram",
+    "build:vendor:secvisogram": "( cd vendors/secvisogram/app && npx --no-install babel --copy-files --delete-dir-on-start --env-name=test --out-dir=dist lib && cat vendor/first/cvsscalc30.js vendor/first/cvsscalc31.js >> dist/shared/Core/entities/DocumentEntity/mandatoryTest_6_1_9.js )",
     "lint": "npm run eslint && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "lb-eslint --report-unused-disable-directives .",
@@ -30,18 +34,18 @@
   },
   "homepage": "https://github.com/loopbackio/security#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.5",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@loopback/build": "^8.1.0",
     "@loopback/eslint-config": "^12.0.2",
-    "@types/ajv": "^1.0.0",
     "@types/glob": "^7.2.0",
-    "ajv": "^8.10.0",
-    "ajv-formats": "^2.1.1",
     "eslint": "^8.9.0",
     "eslint-plugin-prettier": "^4.0.0",
     "glob": "^7.2.0",
     "husky": "^7.0.4",
+    "secvisogram": "file:./vendors/secvisogram/app",
     "ts-node": "^10.5.0"
   }
 }
