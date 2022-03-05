@@ -68,10 +68,10 @@ function validateTracking(fileContents: any): ValidationResult {
   const tracking = fileContents.document.tracking;
   let errors: ValidationResult['errors'] = [];
 
-  if (!/^(lbsa-[1-9][0-9]*)$/.test(tracking.id)) {
+  if (!/^(LBSA-[1-9][0-9]*)$/.test(tracking.id)) {
     errors.push({
       instancePath: 'document/tracking/id',
-      message: 'id must match `/^(lbsa-[1-9][0-9]*)$/`.',
+      message: 'id must match `/^(LBSA-[1-9][0-9]*)$/`.',
     });
   }
 
