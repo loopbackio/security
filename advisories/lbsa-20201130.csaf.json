@@ -8,7 +8,7 @@
     "category": "security_advisory",
     "csaf_version": "2.0",
     "distribution": {
-      "text": "Disclosure is not limited.",
+      "text": "Disclosure is not limited.\nSPDX-FileCopyrightText: LoopBack Contributors\nSPDX-License-Identifier: MIT",
       "tlp": {
         "label": "WHITE"
       }
@@ -49,10 +49,15 @@
     ],
     "title": "Security Advisory 11-30-2020",
     "tracking": {
-      "current_release_date": "2022-01-17T00:00:00.000Z",
+      "current_release_date": "2022-03-05T00:00:00.000Z",
       "id": "lbsa-20201130",
-      "initial_release_date": "2022-01-17T00:00:00.000Z",
+      "initial_release_date": "2022-01-18T00:00:00.000Z",
       "revision_history": [
+        {
+          "date": "2022-03-05T00:00:00.000Z",
+          "number": "1.0.1",
+          "summary": "Fixed validation errors."
+        },
         {
           "date": "2022-01-18T00:00:00.000Z",
           "number": "1.0.0",
@@ -60,7 +65,7 @@
         }
       ],
       "status": "final",
-      "version": "1.0.0"
+      "version": "1.0.1"
     }
   },
   "product_tree": {
@@ -144,7 +149,7 @@
       },
       "references": [
         {
-          "summary": "GitHub pull request",
+          "summary": "GitHub Pull Request",
           "url": "https://github.com/loopbackio/loopback-next/pull/6676"
         },
         {
