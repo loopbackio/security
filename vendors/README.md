@@ -12,4 +12,5 @@ repository.
 
 | Directory | Used by
 |-|-
+| `osv-schema/` | [OSV 1.2.0 validation](../advisories/README.md#scripts)
 | `secvisogram/` | [CSAF 2.0 validation](../advisories/README.md#scripts)

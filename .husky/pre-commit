@@ -6,3 +6,4 @@
 
 npm run-script prettier:check
 npm run-script validate-csaf20
+npm run-script validate-osv
