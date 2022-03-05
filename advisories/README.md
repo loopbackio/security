@@ -11,17 +11,19 @@
 
 This section of the Git repository is where all LBSAs are stored. They are
 written as [CSAF 2.0](https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html)
-documents.
+documents and
+[OSV 1.2.0](https://github.com/ossf/osv-schema/tree/5e3cbf8abb4e192f87d00354b23e56340388cf98).
 
 The naming convention is as follows:
 
 ```
-lbsa-YYYYMMDD.csaf.json
+lbsa-YYYYMMDD.csaf.json <-- CSAF 2.0
+lbsa-YYYYMMDD.osv.json  <-- OSV 1.2.0
 ```
 
 Where:
 
-- `YYYY` is the year
+- `YYYY` is the year of
 - `MM` is the month
 - `DD` is the day
 
@@ -33,12 +35,25 @@ during a Git commit, and as part of the
 [CI pipeline](../.github/workflows/ci.yaml). It can also be triggered by running
 `npm run validate-csaf20`.
 
+Validation of OSV 1.2.0 documents are done by
+<../scripts/advisories/validate-osv.ts>. This is triggered automatically during
+a Git commit, and as aprt of the [CI pipeline](../.github/workflows/ci.yaml). It
+can also be triggered by running `npm run validate-osv`.
+
+CSAF 2.0 acts as the "source of truth" of which the other formats are validated
+against as it is the most comprehensive format. Hence, any deviations from the
+CSAF 2.0 document must also be reflected back in the CSAF 2.0 document itself.
+
 ## Vendors
 
 This section depends on [Secvisogram](../vendors/README.md#submodules) for
 validation, its ports of JSON Schemas from Draft-04 (No first-class AJV support)
 to Draft-2019, and for a strict variant of CSAF 2.0 JSON Schema. There are plans
 to utilise the other parts of the codebase for more thorough validation.
+
+It also depends on
+[Open Source Vulnerability schema](../vendors/README.md#submodules) for JSON
+Schema-based OSV validation.
 
 ## Dependents
 
