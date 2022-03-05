@@ -43,16 +43,33 @@
         "url": "https://loopback.io/doc/en/sec/Security-advisory-11-30-2020.html"
       },
       {
+        "summary": "NVD - CVE-2020-4988 Detail",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-4988"
+      },
+      {
+        "summary": "CVE-2020-4988 CVE Record",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2020-4988"
+      },
+      {
+        "summary": "NPM",
+        "url": "https://www.npmjs.com/package/@loopback/rest"
+      },
+      {
         "summary": "X-Force Vulnerability Report",
         "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/192706"
       }
     ],
     "title": "Security Advisory 11-30-2020",
     "tracking": {
-      "current_release_date": "2022-03-05T00:00:00.000Z",
-      "id": "lbsa-20201130",
+      "current_release_date": "2022-03-05T16:39:00.000Z",
+      "id": "LBSA-20201130",
       "initial_release_date": "2022-01-18T00:00:00.000Z",
       "revision_history": [
+        {
+          "date": "2022-03-05T16:39:00.000Z",
+          "number": "1.1.0",
+          "summary": "Updated tracking ID; Added references"
+        },
         {
           "date": "2022-03-05T00:00:00.000Z",
           "number": "1.0.1",
@@ -65,7 +82,7 @@
         }
       ],
       "status": "final",
-      "version": "1.0.1"
+      "version": "1.1.0"
     }
   },
   "product_tree": {
