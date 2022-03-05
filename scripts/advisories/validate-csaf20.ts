@@ -77,14 +77,14 @@ function validateTracking(fileContents: any): ValidationResult {
 
   if (tracking.status !== 'final') {
     errors.push({
-      instancePath: 'document/tracking/status',
+      instancePath: '/document/tracking/status',
       message: 'status must equal `final`.',
     });
   }
 
   if (tracking.revision_history[0].date != tracking.current_release_date) {
     errors.push({
-      instancePath: 'document/tracking/current_release_date',
+      instancePath: '/document/tracking/current_release_date',
       message: 'current_release_date does not match latest revision history.',
     });
   }
@@ -94,7 +94,7 @@ function validateTracking(fileContents: any): ValidationResult {
     tracking.initial_release_date
   ) {
     errors.push({
-      instancePath: 'document/tracking/initial_release_date',
+      instancePath: '/document/tracking/initial_release_date',
       message: 'initial_release_date does not match first revision history.',
     });
   }
@@ -115,7 +115,7 @@ function validateTracking(fileContents: any): ValidationResult {
         versioningSystem
       ) {
         errors.push({
-          instancePath: `document/revision_history/${i}/number`,
+          instancePath: `/document/revision_history/${i}/number`,
           message: 'number version system inconsistent.',
         });
       }
@@ -138,14 +138,14 @@ function validateDistribution(fileContents: any): ValidationResult {
 
   if ((distribution.text as string) !== standardisedDistributionInfo) {
     errors.push({
-      instancePath: 'document/distribution/text',
+      instancePath: '/document/distribution/text',
       message: `text must be \`${standardisedDistributionInfo}\``,
     });
   }
 
   if (distribution.tlp?.label !== 'WHITE') {
     errors.push({
-      instancePath: 'document/distribution/tlp/label',
+      instancePath: '/document/distribution/tlp/label',
       message: 'label must be `WHITE`',
     });
   }
@@ -167,14 +167,14 @@ function validateProductTree(fileContents: any): ValidationResult {
     const lbRootBranch = productTree[lbRootBranchIndex];
     if (lbRootBranch.category !== 'vendor') {
       errors.push({
-        instancePath: `product_tree/branches/${lbRootBranchIndex}/category`,
+        instancePath: `/product_tree/branches/${lbRootBranchIndex}/category`,
         message:
           'category must be `vendor` for `The LoopBack Maintainers` vendor root branch.',
       });
     }
   } else {
     errors.push({
-      instancePath: 'product_tree/branches',
+      instancePath: '/product_tree/branches',
       message: '`The LoopBack Maintainers` vendor root branch must exist.',
     });
   }
@@ -191,21 +191,21 @@ function validatePublisher(fileContents: any): ValidationResult {
 
   if (publisher.category !== 'vendor') {
     errors.push({
-      instancePath: 'document/publisher/category',
+      instancePath: '/document/publisher/category',
       message: 'category must equal `vendor`',
     });
   }
 
   if (publisher.name !== 'The LoopBack Maintainers') {
     errors.push({
-      instancePath: 'document/publisher/name',
+      instancePath: '/document/publisher/name',
       message: 'name must equal `The LoopBack Maintainers`',
     });
   }
 
   if (publisher.namespace !== 'https://loopback.io') {
     errors.push({
-      instancePath: 'document/publisher/namespace',
+      instancePath: '/document/publisher/namespace',
       message: 'namespace must equal `https://loopback.io`',
     });
   }
