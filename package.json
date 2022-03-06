@@ -43,6 +43,7 @@
     "@loopback/build": "^8.1.0",
     "@loopback/eslint-config": "^12.0.2",
     "@types/glob": "^7.2.0",
+    "@types/semver": "^7.3.9",
     "ajv": "^8.10.0",
     "ajv-formats": "^2.1.1",
     "eslint": "^8.9.0",
@@ -50,6 +51,7 @@
     "glob": "^7.2.0",
     "husky": "^7.0.4",
     "secvisogram": "file:./vendors/secvisogram/app",
+    "semver": "^7.3.5",
     "ts-node": "^10.5.0"
   }
 }

@@ -6,6 +6,7 @@ import glob from 'glob';
 import Ajv2020 from 'ajv/dist/2020';
 import addFormats from 'ajv-formats';
 import osvSchema from '../../vendors/osv-schema/validation/schema.json';
+import semver from 'semver';
 
 const osvDocumentGlob = '../../advisories/*.osv.json';
 
@@ -32,6 +33,7 @@ glob(path.resolve(__dirname, osvDocumentGlob), async (err, matches) => {
     const validationResults: Record<string, ValidationResult> = {
       jsonSchema: validateJsonSchema(fileContents),
       schemaVersion: validateSchemaVersion(fileContents),
+      affectedVersions: validateAffectedVersions(fileContents),
       csaf20Sync: validateCSAF20Sync(filePath, fileContents),
     };
 
@@ -80,6 +82,58 @@ function validateSchemaVersion(fileContents: any): ValidationResult {
       instancePath: '/schema_version',
       message: 'schema_version must be `1.2.0`.',
     });
+  }
+
+  return {
+    isValid: errors.length < 1,
+    errors,
+  };
+}
+
+function validateAffectedVersions(fileContents: any): ValidationResult {
+  const errors: ValidationResult['errors'] = [];
+
+  if (!fileContents.affected) {
+    errors.push({
+      instancePath: '/affected',
+      message: 'affected must exist.',
+    });
+  }
+
+  for (const affected of fileContents.affected) {
+    const versions = affected.versions;
+
+    if (versions !== undefined) {
+      const semverEvents = (affected.ranges as any[]).find(
+        x => x.type === 'SEMVER',
+      ).events;
+      const semverRange =
+        '>=' +
+        semverEvents.find(x => x.introduced).introduced +
+        ' <' +
+        semverEvents.find(x => x.fixed).fixed;
+
+      console.log(semverRange);
+
+      for (let i = 0; i < versions.length; i++) {
+        const version = versions[i];
+
+        if (
+          !semver.satisfies(version, semverRange, {includePrerelease: true})
+        ) {
+          errors.push({
+            instancePath: `/affected/versions/${i}`,
+            message:
+              'versions must be within introduced and fixed semver range.',
+          });
+        }
+      }
+    } else {
+      errors.push({
+        instancePath: '/affected/ranges/versions',
+        message: 'versions must exist.',
+      });
+    }
   }
 
   return {
