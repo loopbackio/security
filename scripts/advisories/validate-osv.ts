@@ -113,8 +113,6 @@ function validateAffectedVersions(fileContents: any): ValidationResult {
         ' <' +
         semverEvents.find(x => x.fixed).fixed;
 
-      console.log(semverRange);
-
       for (let i = 0; i < versions.length; i++) {
         const version = versions[i];
 
@@ -161,7 +159,7 @@ function validateCSAF20Sync(
   }
 
   // Summary sync
-  const csaf20Summary = csaf20Document.document.notes.find(
+  const csaf20Summary = csaf20Document.vulnerabilities[0].notes?.find(
     x => x.category === 'summary',
   ).text;
   const osvSummary = osvDocument.summary;
@@ -174,7 +172,7 @@ function validateCSAF20Sync(
   }
 
   // Description / Details sync
-  const csaf2SDescription = csaf20Document.document.notes.find(
+  const csaf2SDescription = csaf20Document.vulnerabilities[0].notes.find(
     x => x.category === 'description',
   ).text;
   const osvDetails = osvDocument.details;
@@ -226,8 +224,15 @@ function validateCSAF20Sync(
   }
 
   // References sync
-  const csaf20References = csaf20Document.document.references.map(x => x.url);
-  const osvReferences = osvDocument.references.map(x => x.url);
+  const csaf20References = [
+    ...csaf20Document.document.references.map(x => x.url),
+    ...csaf20Document.vulnerabilities
+      .flatMap(x => x.references)
+      .map(x => x.url),
+  ];
+  const osvReferences = osvDocument.references
+    .map(x => x.url)
+    .filter(x => x !== 'https://loopback.io');
 
   if (osvReferences.length >= csaf20References.length) {
     for (let i = 0; i < osvReferences.length; i++) {
