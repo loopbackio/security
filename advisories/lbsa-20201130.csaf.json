@@ -61,13 +61,13 @@
     ],
     "title": "Security Advisory 11-30-2020",
     "tracking": {
-      "current_release_date": "2022-03-05T16:39:00.000Z",
+      "current_release_date": "2022-03-07T03:42:00.000Z",
       "id": "LBSA-20201130",
       "initial_release_date": "2022-01-18T00:00:00.000Z",
       "revision_history": [
         {
           "date": "2022-03-07T03:42:00.000Z",
-          "number": "1.2.0",
+          "number": "2.0.0",
           "summary": "Updated product tree, product status."
         },
         {
@@ -87,7 +87,7 @@
         }
       ],
       "status": "final",
-      "version": "1.1.0"
+      "version": "2.0.0"
     }
   },
   "product_tree": {
