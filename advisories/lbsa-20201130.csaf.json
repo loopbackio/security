@@ -14,57 +14,34 @@
       }
     },
     "lang": "en",
-    "notes": [
-      {
-        "audience": "all",
-        "category": "description",
-        "text": "It's a similar issue as https://snyk.io/vuln/SNYK-JS-LODASH-73638, where the following description is quoted from.\n\n> Prototype Pollution is a vulnerability affecting JavaScript. Prototype Pollution refers to the ability to inject properties into existing JavaScript language construct prototypes, such as objects. JavaScript allows all Object attributes to be altered, including their magical attributes such as `_proto_`, `constructor` and `prototype`. An attacker manipulates these attributes to overwrite, or pollute, a JavaScript application object prototype of the base object by injecting other values. Properties on the Object.prototype are then inherited by all the JavaScript objects through the prototype chain. When that happens, this leads to either denial of service by triggering JavaScript exceptions, or it tampers with the application source code to force the code path that the attacker injects, thereby leading to remote code execution.\n>\n> There are two main ways in which the pollution of prototypes occurs:\n>\n> - Unsafe Object recursive merge\n> - Property definition by path"
-      },
-      {
-        "audience": "all",
-        "category": "summary",
-        "text": "`@loopback/rest` allows REST APIs to have `constructor` in the JSON payload, which is vulnerable to prototype pollution."
-      }
-    ],
     "publisher": {
       "category": "vendor",
-      "name": "The LoopBack Maintainers",
+      "name": "LoopBack",
       "namespace": "https://loopback.io"
     },
     "references": [
       {
         "category": "self",
-        "summary": "Security Advisory 11-30-2020 CSAF document",
+        "summary": "LoopBack Security Advisory 11-30-2020 CSAF document",
         "url": "https://loopback.io/doc/en/sec/lbsa-2020-11-30.csaf.json"
       },
       {
         "category": "self",
-        "summary": "Security Advisory 11-30-2020 HTML document",
+        "summary": "LoopBack Security Advisory 11-30-2020 HTML document",
         "url": "https://loopback.io/doc/en/sec/Security-advisory-11-30-2020.html"
-      },
-      {
-        "summary": "NVD - CVE-2020-4988 Detail",
-        "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-4988"
-      },
-      {
-        "summary": "CVE-2020-4988 CVE Record",
-        "url": "https://www.cve.org/CVERecord?id=CVE-2020-4988"
-      },
-      {
-        "summary": "NPM",
-        "url": "https://www.npmjs.com/package/@loopback/rest"
-      },
-      {
-        "summary": "X-Force Vulnerability Report",
-        "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/192706"
       }
     ],
-    "title": "Security Advisory 11-30-2020",
+    "title": "LoopBack Security Advisory 11-30-2020",
     "tracking": {
-      "current_release_date": "2022-03-07T03:42:00.000Z",
+      "current_release_date": "2022-03-07T13:53:00.000Z",
       "id": "LBSA-20201130",
       "initial_release_date": "2022-01-18T00:00:00.000Z",
       "revision_history": [
+        {
+          "date": "2022-03-07T13:53:00.000Z",
+          "number": "2.1.0",
+          "summary": "Updated vendor; Updated references; Reorganised notes."
+        },
         {
           "date": "2022-03-07T03:42:00.000Z",
           "number": "2.0.0",
@@ -87,7 +64,7 @@
         }
       ],
       "status": "final",
-      "version": "2.0.0"
+      "version": "2.1.0"
     }
   },
   "product_tree": {
@@ -2106,7 +2083,7 @@
           }
         ],
         "category": "vendor",
-        "name": "The LoopBack Maintainers"
+        "name": "LoopBack"
       }
     ]
   },
@@ -2308,10 +2285,31 @@
       },
       "references": [
         {
+          "category": "self",
           "summary": "GitHub Pull Request",
           "url": "https://github.com/loopbackio/loopback-next/pull/6676"
         },
         {
+          "category": "self",
+          "summary": "GitHub Commit",
+          "url": "https://github.com/loopbackio/loopback-next/tree/ae0b9936e7eadbf6f0ee7c72e1a04b87dda7c2c5"
+        },
+        {
+          "category": "self",
+          "summary": "NVD CVE Detail",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-4988"
+        },
+        {
+          "category": "self",
+          "summary": "CVE Record",
+          "url": "https://www.cve.org/CVERecord?id=CVE-2020-4988"
+        },
+        {
+          "summary": "NPM",
+          "url": "https://www.npmjs.com/package/@loopback/rest"
+        },
+        {
+          "category": "self",
           "summary": "X-Force Vulnerability Report",
           "url": "https://exchange.xforce.ibmcloud.com/vulnerabilities/192706"
         }

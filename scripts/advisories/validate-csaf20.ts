@@ -27,6 +27,7 @@ glob(path.resolve(__dirname, csaf20DocumentGlob), async (err, matches) => {
       distribution: validateDistribution(fileContents),
       productTree: validateProductTree(fileContents),
       publisher: validatePublisher(fileContents),
+      references: validateReferences(fileContents),
     };
 
     const validationResultsValues = Object.values(validationResults);
@@ -160,7 +161,7 @@ function validateProductTree(fileContents: any): ValidationResult {
   const productTree = fileContents.product_tree.branches;
   const errors: ValidationResult['errors'] = [];
   const lbRootBranchIndex = (productTree as any[])?.findIndex(
-    v => v.name === 'The LoopBack Maintainers',
+    v => v.name === 'LoopBack',
   );
 
   if (lbRootBranchIndex > -1) {
@@ -168,14 +169,13 @@ function validateProductTree(fileContents: any): ValidationResult {
     if (lbRootBranch.category !== 'vendor') {
       errors.push({
         instancePath: `/product_tree/branches/${lbRootBranchIndex}/category`,
-        message:
-          'category must be `vendor` for `The LoopBack Maintainers` vendor root branch.',
+        message: 'category must be `vendor` for `LoopBack` vendor root branch.',
       });
     }
   } else {
     errors.push({
       instancePath: '/product_tree/branches',
-      message: '`The LoopBack Maintainers` vendor root branch must exist.',
+      message: '`LoopBack` vendor root branch must exist.',
     });
   }
 
@@ -196,10 +196,10 @@ function validatePublisher(fileContents: any): ValidationResult {
     });
   }
 
-  if (publisher.name !== 'The LoopBack Maintainers') {
+  if (publisher.name !== 'LoopBack') {
     errors.push({
       instancePath: '/document/publisher/name',
-      message: 'name must equal `The LoopBack Maintainers`',
+      message: 'name must equal `LoopBack`',
     });
   }
 
@@ -208,6 +208,86 @@ function validatePublisher(fileContents: any): ValidationResult {
       instancePath: '/document/publisher/namespace',
       message: 'namespace must equal `https://loopback.io`',
     });
+  }
+
+  return {
+    isValid: errors.length < 1,
+    errors,
+  };
+}
+
+function validateReferences(fileContents: any): ValidationResult {
+  const errors: ValidationResult['errors'] = [];
+  const documentReferences = fileContents.document.references;
+  const vulnerabilityReferences = fileContents.vulnerabilities.flatMap(
+    x => x.references,
+  );
+
+  // Ensure references with standardised summary uses a consistent URL.
+
+  // Do not re-order this array.
+  const allReferences = [...documentReferences, ...vulnerabilityReferences];
+
+  const refRegexMapping: Record<string, RegExp> = {
+    'CVE Record':
+      /^https:\/\/www\.cve\.org\/CVERecord\?id=CVE-[1-9][0-9]{3}-\d{4}$/,
+    NPM: /^https:\/\/www\.npmjs\.com\/package\/([a-z0-9-]|(@[a-z0-9._-]+\/))[a-z0-9._-]+$/,
+    'NVD CVE Detail':
+      /^https:\/\/nvd\.nist\.gov\/vuln\/detail\/CVE-[1-9][0-9]{3}-\d{4}$/,
+    'GitHub Commit':
+      /^(https:\/\/github\.com\/loopbackio\/[A-Za-z0-9._-]+\/tree\/[a-z0-9]+)$/,
+    'GitHub Pull Request':
+      /^(https:\/\/github\.com\/loopbackio\/[A-Za-z0-9._-]+\/pull\/[1-9]\d*)$/,
+    'X-Force Vulnerability Report':
+      /^https:\/\/exchange\.xforce\.ibmcloud\.com\/vulnerabilities\/[1-9]\d*$/,
+  };
+
+  for (let i = 0; i < allReferences.length; i++) {
+    const ref = allReferences[i];
+    const matchedRegex = refRegexMapping[ref.summary];
+
+    if (matchedRegex) {
+      if (!matchedRegex.test(ref.url)) {
+        // Hacky way of paritally reconstructing the instance path.
+        const baseInstancePath =
+          i < documentReferences.length
+            ? '/document/references/'
+            : '/vulnerabilities/?/';
+        const refIndex =
+          i < documentReferences.length ? i : i - documentReferences.length;
+
+        errors.push({
+          instancePath: baseInstancePath + refIndex + '/url',
+          message: `url must match \`${matchedRegex}\`.`,
+        });
+      }
+    }
+  }
+
+  // Ensure no duplicate URLs between document-level and vulnerability-level
+  // references
+  const documentReferenceUrls = documentReferences.map(x => x.url);
+  const vulnerabilityReferenceUrls = vulnerabilityReferences.map(x => x.url);
+
+  if (documentReferenceUrls.length >= vulnerabilityReferenceUrls) {
+    for (let i = 0; i < documentReferenceUrls.length; i++) {
+      if (vulnerabilityReferenceUrls.includes(documentReferenceUrls[i])) {
+        errors.push({
+          instancePath: `/document/references/${i}/url`,
+          message:
+            'url must not be duplicate in `/vulnerabilities/*/references/*/url`.',
+        });
+      }
+    }
+  } else {
+    for (let i = 0; i < vulnerabilityReferenceUrls.length; i++) {
+      if (documentReferenceUrls.includes(vulnerabilityReferenceUrls[i])) {
+        errors.push({
+          instancePath: `/vulnerabilities/?/references/${i}/url`,
+          message: 'url not must be duplicate in `/document/references/*/url',
+        });
+      }
+    }
   }
 
   return {
