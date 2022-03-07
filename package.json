@@ -18,6 +18,7 @@
     "prettier:check": "npm run prettier:cli -- -l",
     "prettier:fix": "npm run prettier:cli -- --write",
     "ts-node": "ts-node --project=scripts/tsconfig.json",
+    "generate-csaf20-product-tree": "npm run ts-node -- scripts/advisories/generate-csaf20-product-tree.ts",
     "validate-csaf20": "npm run ts-node -- scripts/advisories/validate-csaf20.ts",
     "validate-osv": "npm run ts-node -- scripts/advisories/validate-osv.ts"
   },
