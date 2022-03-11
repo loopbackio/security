@@ -5,15 +5,18 @@
     "json.schemas": [
         {
             "fileMatch": [
-                "advisories/lbsa-*.csaf.json"
+                "advisories/*/lbsec-*.csaf.json"
             ],
             "url": "https://docs.oasis-open.org/csaf/csaf/v2.0/csaf_json_schema.json"
         },
         {
             "fileMatch": [
-                "advisories/lbsa-*.osv.json"
+                "advisories/*/lbsec-*.osv.json"
             ],
             "url": "./vendors/osv-schema/validation/schema.json"
         }
-    ]
+    ],
+    "yaml.schemas": {
+        "./vendors/local-gemnasium/schema.json": "advisories/*/lbsec-*.gemnasium.yaml"
+    }
 }

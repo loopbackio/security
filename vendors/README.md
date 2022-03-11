@@ -5,12 +5,11 @@
 
 # Vendors
 
-This directory contains Git submodules that are depended upon by this Git
-repository.
+This directory contains directories (Usually Git Submodules) that are depended upon by this Git
+repository. If the directory is prefixed with `local-`, it is not a Git Submodule.
 
-## Submodules
-
-| Directory | Used by
-|-|-
-| `osv-schema/` | [OSV 1.2.0 validation](../advisories/README.md#scripts)
-| `secvisogram/` | [CSAF 2.0 validation](../advisories/README.md#scripts)
+| Directory | Used by | Git Submodule?
+|-|-|-
+| `local-cpe/` | [CPE 2.3 Extended Dictionary validation](../cpe/README.md#scripts) | No
+| `osv-schema/` | [OSV 1.2.0 validation](../advisories/README.md#scripts) | Yes
+| `secvisogram/` | [CSAF 2.0 validation](../advisories/README.md#scripts) | Yes

@@ -10,7 +10,7 @@
         {
           "events": [
             {
-              "introduced": "02e2ce0a031367438afeaeabdfae2e29e10f25ee"
+              "introduced": ""
             },
             {
               "fixed": "f47fad3f4669c3ceae5e0927dc6098da18df864d"
@@ -22,7 +22,7 @@
         {
           "events": [
             {
-              "introduced": "0"
+              "introduced": "0.1.0"
             },
             {
               "fixed": "9.0.0"
@@ -32,29 +32,6 @@
         }
       ],
       "versions": [
-        "4.0.0-alpha.4",
-        "4.0.0-alpha.5",
-        "4.0.0-alpha.6",
-        "4.0.0-alpha.7",
-        "4.0.0-alpha.8",
-        "4.0.0-alpha.9",
-        "4.0.0-alpha.10",
-        "4.0.0-alpha.11",
-        "4.0.0-alpha.12",
-        "4.0.0-alpha.13",
-        "4.0.0-alpha.14",
-        "4.0.0-alpha.15",
-        "4.0.0-alpha.16",
-        "4.0.0-alpha.17",
-        "4.0.0-alpha.18",
-        "4.0.0-alpha.19",
-        "4.0.0-alpha.20",
-        "4.0.0-alpha.21",
-        "4.0.0-alpha.22",
-        "4.0.0-alpha.23",
-        "4.0.0-alpha.24",
-        "4.0.0-alpha.25",
-        "4.0.0-alpha.26",
         "0.1.0",
         "0.1.1",
         "0.1.2",
@@ -213,8 +190,8 @@
     "CWE": "CWE-1321"
   },
   "details": "It's a similar issue as https://snyk.io/vuln/SNYK-JS-LODASH-73638, where the following description is quoted from.\n\n> Prototype Pollution is a vulnerability affecting JavaScript. Prototype Pollution refers to the ability to inject properties into existing JavaScript language construct prototypes, such as objects. JavaScript allows all Object attributes to be altered, including their magical attributes such as `_proto_`, `constructor` and `prototype`. An attacker manipulates these attributes to overwrite, or pollute, a JavaScript application object prototype of the base object by injecting other values. Properties on the Object.prototype are then inherited by all the JavaScript objects through the prototype chain. When that happens, this leads to either denial of service by triggering JavaScript exceptions, or it tampers with the application source code to force the code path that the attacker injects, thereby leading to remote code execution.\n>\n> There are two main ways in which the pollution of prototypes occurs:\n>\n> - Unsafe Object recursive merge\n> - Property definition by path",
-  "id": "LBSA-20201130",
-  "modified": "2022-03-07T13:53:00.000Z",
+  "id": "LBSEC-20201130-1",
+  "modified": "1970-01-01T00:00:00.000Z",
   "references": [
     {
       "type": "ADVISORY",
@@ -222,7 +199,15 @@
     },
     {
       "type": "ADVISORY",
-      "url": "https://loopback.io/doc/en/sec/Security-advisory-11-30-2020.html"
+      "url": "https://loopback.io/doc/en/sec/lbsa-2020-11-30.gemnasium.json"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://loopback.io/doc/en/sec/lbsa-2020-11-30.html"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://loopback.io/doc/en/sec/lbsa-2020-11-30.osv.json"
     },
     {
       "type": "PACKAGE",
@@ -242,11 +227,27 @@
     },
     {
       "type": "WEB",
-      "url": "https://github.com/loopbackio/loopback-next/pull/6676"
+      "url": "https://github.com/loopbackio/loopback-datasource-juggler/commit/3d71ea1571428e3c3b4816227fec88c9ab1cdd69"
     },
     {
       "type": "WEB",
-      "url": "https://github.com/loopbackio/loopback-next/tree/ae0b9936e7eadbf6f0ee7c72e1a04b87dda7c2c5"
+      "url": "https://github.com/loopbackio/loopback-datasource-juggler/pull/1875"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-datasource-juggler/commit/454fd0f1b2dddb6a26bc665756c1881d4cae4f10"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-datasource-juggler/pull/1874"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-next/commit/ae0b9936e7eadbf6f0ee7c72e1a04b87dda7c2c5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-next/pull/6676"
     },
     {
       "type": "WEB",
