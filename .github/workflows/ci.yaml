@@ -27,7 +27,7 @@ jobs:
       - name: Code lint check
         run: |
           npm run-script --ignore-scripts prettier:check
-          npm run-script --ignore-scripts validate-csaf20
+          npm run-script --ignore-scripts validate
       - name: REUSE compliance check
         uses: fsfe/reuse-action@43bd643263f2a557a37e023e538ab9f83dce92a6 #v1.1.1
   commit-lint:
