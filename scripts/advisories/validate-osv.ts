@@ -8,7 +8,7 @@ import addFormats from 'ajv-formats';
 import osvSchema from '../../vendors/osv-schema/validation/schema.json';
 import semver from 'semver';
 
-const osvDocumentGlob = '../../advisories/*.osv.json';
+const osvDocumentGlob = '../../advisories/*/*.osv.json';
 
 console.log(`Validating OSV 1.2.0 documents... (Glob: ${osvDocumentGlob})`);
 
@@ -104,14 +104,21 @@ function validateAffectedVersions(fileContents: any): ValidationResult {
     const versions = affected.versions;
 
     if (versions !== undefined) {
-      const semverEvents = (affected.ranges as any[]).find(
-        x => x.type === 'SEMVER',
-      ).events;
-      const semverRange =
-        '>=' +
-        semverEvents.find(x => x.introduced).introduced +
-        ' <' +
-        semverEvents.find(x => x.fixed).fixed;
+      const semverEvents = (affected.ranges as any[])
+        .filter(x => x.type === 'SEMVER')
+        .map(x => x.events);
+
+      let semverRange = '';
+
+      for (let i = 0; i < semverEvents.length; i++) {
+        const eventGroup = semverEvents[i];
+
+        semverRange +=
+          `>=${eventGroup.find(x => x.introduced).introduced}` +
+          ` <${eventGroup.find(x => x.fixed).fixed}`;
+
+        if (i + 1 < semverEvents.length) semverRange += ' || ';
+      }
 
       for (let i = 0; i < versions.length; i++) {
         const version = versions[i];
@@ -191,14 +198,14 @@ function validateCSAF20Sync(
   if (csaf20CVE !== osvCVE) {
     errors.push({
       instancePath: '/aliases',
-      message: 'alises must match CSAF `/vulnerabilities/0/cve`.',
+      message: 'aliases must match CSAF `/vulnerabilities/0/cve`.',
     });
   }
 
   // CVSS V3 sync
-  const csaf20CVSS3 =
-    csaf20Document.vulnerabilities[0].scores[0].cvss_v3?.vectorString;
-  const osvCVSS3Index = osvDocument.severity.findIndex(
+  const csaf20CVSS3 = (csaf20Document.vulnerabilities[0].scores ?? [])[0]
+    ?.cvss_v3?.vectorString;
+  const osvCVSS3Index = osvDocument.severity?.findIndex(
     x => x.type === 'CVSS_V3',
   );
   const osvCVSS3 =

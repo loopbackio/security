@@ -5,7 +5,7 @@ import path from 'path';
 import glob from 'glob';
 import createCore from 'secvisogram/dist/shared/Core';
 
-const csaf20DocumentGlob = '../../advisories/*.csaf.json';
+const csaf20DocumentGlob = '../../advisories/*/*.csaf.json';
 
 console.log(`Validating CSAF 2.0 documents... (Glob: ${csaf20DocumentGlob})`);
 
@@ -69,17 +69,10 @@ function validateTracking(fileContents: any): ValidationResult {
   const tracking = fileContents.document.tracking;
   let errors: ValidationResult['errors'] = [];
 
-  if (!/^(LBSA-[1-9][0-9]*)$/.test(tracking.id)) {
+  if (!/^(LBSEC-[1-9][0-9]*-[1-9][0-9]*)$/.test(tracking.id)) {
     errors.push({
       instancePath: 'document/tracking/id',
-      message: 'id must match `/^(LBSA-[1-9][0-9]*)$/`.',
-    });
-  }
-
-  if (tracking.status !== 'final') {
-    errors.push({
-      instancePath: '/document/tracking/status',
-      message: 'status must equal `final`.',
+      message: 'id must match `/^(LBSEC-[1-9][0-9]*-[1-9][0-9]*)$/`.',
     });
   }
 
@@ -230,21 +223,24 @@ function validateReferences(fileContents: any): ValidationResult {
 
   const refRegexMapping: Record<string, RegExp> = {
     'CVE Record':
-      /^https:\/\/www\.cve\.org\/CVERecord\?id=CVE-[1-9][0-9]{3}-\d{4}$/,
+      /^https:\/\/www\.cve\.org\/CVERecord\?id=CVE-[1-9][0-9]{3}-\d{4,}(-\d+)?$/,
     NPM: /^https:\/\/www\.npmjs\.com\/package\/([a-z0-9-]|(@[a-z0-9._-]+\/))[a-z0-9._-]+$/,
     'NVD CVE Detail':
       /^https:\/\/nvd\.nist\.gov\/vuln\/detail\/CVE-[1-9][0-9]{3}-\d{4}$/,
     'GitHub Commit':
-      /^(https:\/\/github\.com\/loopbackio\/[A-Za-z0-9._-]+\/tree\/[a-z0-9]+)$/,
+      /^(https:\/\/github\.com\/(strongloop|loopbackio)\/[A-Za-z0-9._-]+\/commit\/[a-z0-9]+)$/,
     'GitHub Pull Request':
-      /^(https:\/\/github\.com\/loopbackio\/[A-Za-z0-9._-]+\/pull\/[1-9]\d*)$/,
+      /^(https:\/\/github\.com\/(strongloop|loopbackio)\/[A-Za-z0-9._-]+\/pull\/[1-9]\d*)$/,
     'X-Force Vulnerability Report':
       /^https:\/\/exchange\.xforce\.ibmcloud\.com\/vulnerabilities\/[1-9]\d*$/,
   };
 
   for (let i = 0; i < allReferences.length; i++) {
     const ref = allReferences[i];
-    const matchedRegex = refRegexMapping[ref.summary];
+    const matchedRegex =
+      refRegexMapping[
+        Object.keys(refRegexMapping).findIndex(x => ref.summary.startsWith(x))
+      ];
 
     if (matchedRegex) {
       if (!matchedRegex.test(ref.url)) {

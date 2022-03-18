@@ -46,12 +46,8 @@ CSAF 2.0 document must also be reflected back in the CSAF 2.0 document itself.
 
 ## Vendors
 
-This section depends on [Secvisogram](../vendors/README.md#submodules) for
-validation, its ports of JSON Schemas from Draft-04 (No first-class AJV support)
-to Draft-2019, and for a strict variant of CSAF 2.0 JSON Schema. There are plans
-to utilise the other parts of the codebase for more thorough validation.
-
-It also depends on
+This section depends on [Secvisogram](../vendors/README.md#submodules) for CSAF
+2.0 validation and the
 [Open Source Vulnerability schema](../vendors/README.md#submodules) for JSON
 Schema-based OSV validation.
 
@@ -64,5 +60,4 @@ are future plans to add integration:
 | ----------------------------------------------------------------------------------------------------- | ------- |
 | Generation of security advisories on [loopback.io website](https://loopback.io/doc/en/sec/index.html) | Planned |
 | Publishing as a CSAF Provider through csaf.data.loopback.io                                           | Planned |
-| Down-conversion and publication of CVRF 1.2                                                           | Planned |
 | Sync with Gitlab Advisory Database                                                                    | Planned |

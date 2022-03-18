@@ -1,0 +1,167 @@
+{
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "npm",
+        "name": "loopback-connector-mongodb",
+        "purl": "pkg:npm/loopback-connector-mongodb"
+      },
+      "ranges": [
+        {
+          "events": [
+            {
+              "introduced": ""
+            },
+            {
+              "fixed": "ee24cd08b8ccc32711264831c71b1da628df357b"
+            }
+          ],
+          "repo": "https://github.com/strongloop/loopback-connector-mongodb.git",
+          "type": "GIT"
+        },
+        {
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.0"
+            }
+          ],
+          "type": "SEMVER"
+        }
+      ],
+      "versions": [
+        "1.0.0",
+        "1.1.0",
+        "1.1.3",
+        "1.1.4",
+        "1.1.5",
+        "1.1.6",
+        "1.1.7",
+        "1.1.8",
+        "1.2.0",
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.2.5",
+        "1.2.6",
+        "1.3.0",
+        "1.4.0",
+        "1.4.1",
+        "1.4.2",
+        "1.4.3",
+        "1.4.4",
+        "1.4.5",
+        "1.5.0",
+        "1.6.0",
+        "1.7.0",
+        "1.8.0",
+        "1.9.0",
+        "1.9.1",
+        "1.9.2",
+        "1.10.0",
+        "1.10.1",
+        "1.11.0",
+        "1.11.1",
+        "1.11.2",
+        "1.11.3",
+        "1.12.0",
+        "1.13.0",
+        "1.13.1",
+        "1.13.2",
+        "1.13.3",
+        "1.14.0",
+        "1.15.0",
+        "1.15.1",
+        "1.15.2",
+        "1.17.0",
+        "1.18.0",
+        "1.18.1",
+        "3.0.0",
+        "3.0.1",
+        "3.1.0",
+        "3.2.0",
+        "3.2.1",
+        "3.3.0",
+        "3.3.1",
+        "3.4.0",
+        "3.4.1",
+        "3.4.2",
+        "3.4.3",
+        "3.4.4",
+        "3.5.0"
+      ]
+    }
+  ],
+  "aliases": [
+    "GHSA-hxwc-5vw9-2w4w",
+    "GHSA-m734-r4g6-34f9",
+    "GMS-2019-37",
+    "GMS-2020-360",
+    "SNYK-JS-LOOPBACKCONNECTORMONGODB-73555"
+  ],
+  "credits": [
+    {
+      "name": "Nelson Brandão",
+      "urls": ["https://github.com/NelsonBrandao"]
+    }
+  ],
+  "database_specific": {
+    "CWE": "CWE-89"
+  },
+  "details": "MongoDB Connector for LoopBack fails to properly sanitize a filter passed to query the database by allowing the dangerous `$where` property to be passed to the MongoDB Driver. The Driver allows the special `$where` property in a filter to execute JavaScript (client can pass in a malicious script) on the database Driver. This is an [intended feature of MongoDB](https://docs.mongodb.com/manual/core/server-side-javascript/) unless [disabled (instructions here)](https://docs.mongodb.com/manual/core/server-side-javascript/#disable-server-side-js).\n\nAn example malicious query:\n\n```\nGET /POST filter={\"where\": {\"$where\": \"function(){sleep(5000); return this.title.contains('Hello');}\"}}\n```\n\nThe above makes the database sleep for 5 seconds and then returns all \"Posts\" with the title containing the word `Hello`.\n\nThe connector now sanitizes all queries passed to the MongoDB Driver by default and deletes the `$where` and `mapReduce` properties. If you need to use these properties from within LoopBack programatically, you can disable the sanitization by passing in an `options` object with `disableSanitization` property set to `true`:\n\n```js\nPost.find(\n  { where: { $where: \"function() { /*dangerous function here*/}\" } },\n  { disableSanitization: true },\n  (err, p) => {\n    // code to handle results / error.\n  }\n);\n```",
+  "id": "LBSEC-20180815-1",
+  "modified": "1970-01-01T00:00:00.000Z",
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-hxwc-5vw9-2w4w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://security.loopback.io/en/advisories/csaf/lbsa-20180815-1.csaf.json"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://security.loopback.io/en/advisories/html/lbsa-20180815-1.html"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://security.loopback.io/en/advisories/osv/lbsa-20180815-1.osv.json"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://security.snyk.io/vuln/SNYK-JS-LOOPBACKCONNECTORMONGODB-73555"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://loopback.io"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/loopback-connector-mongodb"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/loopbackio/loopback-connector-mongodb/issues/403"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-connector-mongodb/commit/ee24cd08b8ccc32711264831c71b1da628df357b"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/loopbackio/loopback-connector-mongodb/pull/452"
+    }
+  ],
+  "schema_version": "1.2.0",
+  "severity": [
+    {
+      "score": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+      "type": "CVSS_V3"
+    }
+  ],
+  "summary": "`loopback-connector-mongodb` version 3.5.0 and below allows NoSQL Injections."
+}
